@@ -3,6 +3,7 @@ pipeline {
         docker {
             image 'node'
             args '-u root'
+            args '-p 3000:3000'
         }
     }
     environment {
@@ -26,10 +27,7 @@ pipeline {
         stage('Deliver') {
             steps {
 
-            sh ("npm run build")
-
-
-
+            
             sh ("npm start & sleep 1")
             sh ("echo \$! > .pidfile")
 
