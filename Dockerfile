@@ -1,9 +1,10 @@
-FROM node:7.7-alpine
+ROM node:7.7-alpine
 MAINTAINER Khalid Nazmus Sakib <knsakib@gmail.com>
 
 # install deps
 ADD package.json /tmp/package.json
 RUN cd /tmp && npm install
+
 
 # Copy deps
 RUN mkdir -p /opt/knsakib-react-blog && cp -a /tmp/node_modules /opt/knsakib-react-blog
@@ -20,4 +21,3 @@ RUN npm install -g serve
 
 # run
 EXPOSE 5000
-CMD serve -s build

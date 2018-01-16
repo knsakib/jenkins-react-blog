@@ -16,6 +16,6 @@ node {
 
    
     stage('Run image') {
-        sh("docker run --name knsakib-blog -p 3000:3000 jenkins-react-blog")
+        sh("docker run --name knsakib-blog -p 5000:5000 jenkins-react-blog")
     }
 }
