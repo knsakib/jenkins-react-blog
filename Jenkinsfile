@@ -16,12 +16,26 @@ pipeline {
         }
         stage('Test') {
             steps {
-                sh './scripts/test.sh'
+            set -x
+            npm install --save-dev cross-env
+            set +x
+
+            set -x
+            npm test
+            
             }
         }
         stage('Deliver') {
             steps {
-                sh './scripts/deliver.sh'
+            set -x
+            npm run build
+            set +x
+
+            set -x
+            npm start &
+            sleep 1
+            echo $! > .pidfile
+            set +x
 
             }
         }
