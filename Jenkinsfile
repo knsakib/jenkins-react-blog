@@ -1,29 +1,29 @@
-node {
-
-
-    stage('Clone repository') {
-        /* Let's make sure we have the repository cloned to our workspace */
-
-        checkout scm
+pipeline {
+    agent {
+        docker {
+            image 'node:6-alpine'
+            args '-p 3000:3000'
+        }
     }
-
-    stage('Build image') {
-        /* This builds the actual image; synonymous to
-         * docker build on the command line */
-
-        sh("docker build -t jenkins-react-blog .")
+    environment {
+        CI = 'true'
     }
-
-    stage('Test image') {
-        /* Ideally, we would run a test framework against our image.
-         * For this example, we're using a Volkswagen-type approach ;-) */
-
-            sh("npm test")
-            sh 'echo "Tests passed"'
-
-    }
-
-    stage('Run image') {
-        sh("docker run --name knsakib-blog -p 3000:3000 jenkins-react-blog")
+    stages {
+        stage('Build') {
+            steps {
+                sh 'npm install'
+            }
+        }
+        stage('Test') {
+            steps {
+                sh './jenkins/scripts/test.sh'
+            }
+        }
+        stage('Deliver') {
+            steps {
+                sh './jenkins/scripts/deliver.sh'
+                
+            }
+        }
     }
 }
