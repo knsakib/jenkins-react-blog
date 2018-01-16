@@ -5,7 +5,6 @@ MAINTAINER Khalid Nazmus Sakib <knsakib@gmail.com>
 ADD package.json /tmp/package.json
 RUN cd /tmp && npm install
 
-
 # Copy deps
 RUN mkdir -p /opt/knsakib-react-blog && cp -a /tmp/node_modules /opt/knsakib-react-blog
 
@@ -13,11 +12,5 @@ RUN mkdir -p /opt/knsakib-react-blog && cp -a /tmp/node_modules /opt/knsakib-rea
 WORKDIR /opt/knsakib-react-blog
 COPY . /opt/knsakib-react-blog
 
-# Build for production.
-RUN npm run build --production
-
-# Install `serve` to run the application.
-RUN npm install -g serve
-
 # run
-EXPOSE 5000
+EXPOSE 3000

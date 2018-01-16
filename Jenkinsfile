@@ -1,5 +1,4 @@
 node {
-
  
      stage('Clone repository') {
         /* Let's make sure we have the repository cloned to our workspace */
@@ -16,6 +15,6 @@ node {
 
    
     stage('Run image') {
-        sh("docker run --name knsakib-blog -p 5000:5000 jenkins-react-blog")
+        sh("docker run -d --name knsakib-blog -p 3000:3000 jenkins-react-blog")
     }
 }
