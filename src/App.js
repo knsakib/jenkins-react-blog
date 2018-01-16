@@ -16,7 +16,7 @@ class App extends Component {
                   <div className="container-fluid">
 
                     <div className="navbar-header">
-                      <Link to="/" className="navbar-brand"><b>React Blog</b></Link>
+                      <Link to="/" className="navbar-brand"><b>knsakib Blog</b></Link>
                     </div>
 
                   </div>
