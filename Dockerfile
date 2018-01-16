@@ -6,7 +6,7 @@ ADD package.json /tmp/package.json
 RUN cd /tmp && npm install
 
 # Build for production.
-RUN npm run build --production
+RUN cd /tmp && run build --production
 
 # Copy deps
 RUN mkdir -p /opt/knsakib-react-blog && cp -a /tmp/node_modules /opt/knsakib-react-blog
