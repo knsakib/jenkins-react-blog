@@ -31,8 +31,8 @@ pipeline {
 
 
             sh ("npm start & sleep 1")
-            sh ("echo $! > .pidfile")
-            
+            sh ("echo \$! > .pidfile")
+
 
             }
         }
