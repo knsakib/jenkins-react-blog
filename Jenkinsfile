@@ -1,38 +1,21 @@
-pipeline {
-    agent {
-        docker {
-            image 'node'
-            args '-u root -p 3000:3000'
-            
-        }
+node {
+
+ 
+     stage('Clone repository') {
+        /* Let's make sure we have the repository cloned to our workspace */
+ 
+         checkout scm
     }
-    environment {
-        CI = 'true'
+
+    stage('Build image') {
+        /* This builds the actual image; synonymous to
+         * docker build on the command line */
+
+        sh("docker build -t jenkins-react-blog .")
     }
-    stages {
-        stage('Build') {
-            steps {
-                sh ("npm install")
-            }
-        }
-        stage('Test') {
-            steps {
 
-            sh ("npm install --save-dev cross-env")
-
-            sh ("npm test")
-
-            }
-        }
-        stage('Deliver') {
-            steps {
-
-            
-            sh ("npm start & sleep 1")
-            sh ("echo \$! > .pidfile")
-
-
-            }
-        }
+   
+    stage('Run image') {
+        sh("docker run --name knsakib-blog -p 3000:3000 jenkins-react-blog")
     }
 }
