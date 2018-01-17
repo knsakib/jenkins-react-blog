@@ -2,7 +2,7 @@
 // Import module
 //-------------------------------------------------------------------
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+// import { Link } from 'react-router-dom';
 //-------------------------------------------------------------------
 
 
@@ -54,9 +54,7 @@ class Home extends Component {
             You can create, update, delete post and share your blog wall with community.
           </p>
           <p>
-            <Link to="/" className="btn btn-primary btn-lg" >
-               Learn more
-            </Link>
+            <a href="/" className="btn btn-primary btn-lg" >Learn more</a>
           </p>
         </div>
 
@@ -67,9 +65,7 @@ class Home extends Component {
             You can create, update, delete post and share your blog wall with community.
           </p>
           <p>
-            <Link to="/" className="btn btn-primary btn-lg" >
-               Learn more
-            </Link>
+              <a href="/" className="btn btn-primary btn-lg" >Learn more</a>
           </p>
         </div>
 
@@ -80,9 +76,7 @@ class Home extends Component {
             You can create, update, delete post and share your blog wall with community.
           </p>
           <p>
-            <Link to="/" className="btn btn-primary btn-lg" >
-               Learn more
-            </Link>
+              <a href="/" className="btn btn-primary btn-lg" >Learn more</a>
           </p>
         </div>
 
