@@ -15,8 +15,7 @@ node {
 
    
     stage('Run image') {
-    	sh("docker stop knsakib-blog")
-    	sh("docker rm knsakib-blog")
+    	sh("docker stop knsakib-blog || true && docker rm knsakib-blog || true")
         sh("docker run -d --name knsakib-blog -p 5000:5000 jenkins-react-blog")
     }
 }
