@@ -1,15 +1,15 @@
 import React, { Component } from 'react';
 
-// import './App.css';
-// import { Route, BrowserRouter, Link, Switch} from 'react-router-dom';
-// import 'bootstrap/dist/css/bootstrap.css';
-import Home from './home/Home';
+import './App.css';
+
+import Home from './Home';
 
 
 class App extends Component {
+
   render() {
     return (
-      
+
           <div>
 
                 <nav className="navbar navbar-inverse">
@@ -17,7 +17,7 @@ class App extends Component {
 
                     <div className="navbar-header">
 
-                      <a href='/' className="navbar-brand"><b>Knsakib Blog</b></a>
+                      <a href='/' className="navbar-brand"><b>Sakib's Blog</b></a>
 
                     </div>
 
