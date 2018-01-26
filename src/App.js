@@ -1,8 +1,12 @@
 import React, { Component } from 'react';
 
 import './App.css';
+import Dockercheat from './Dockercheat';
+import Linuxcheat from './Linuxcheat';
+import Gitcheat from './Gitcheat';
 
-import Home from './Home';
+import { Route, Link, Switch} from 'react-router-dom';
+
 
 
 class App extends Component {
@@ -13,7 +17,7 @@ class App extends Component {
           <div>
 
                 <nav className="navbar navbar-inverse">
-                  <div className="container-fluid">
+
 
                     <div className="navbar-header">
 
@@ -21,12 +25,41 @@ class App extends Component {
 
                     </div>
 
-                  </div>
+
                 </nav>
 
-              <Home />
+				<div className="container-fluid" >
+
+					<div className="jumbotron">
+
+							<div class="row">
+
+									<div class="col-sm-4">
+
+										 <Link to="/dockercheatsheet"><span className="btn"></span><h2>Docker Cheatsheet</h2></Link>
+										 <Link to="/linuxcheatsheet"><span className="btn"></span><h2>Linux Cheatsheet</h2></Link>
+										 <Link to="/gitcheatsheet"><span className="btn"></span><h2>GIT Cheatsheet</h2></Link>
+
+									</div>
+
+								<div class="col-sm-8">
+									<Switch>
+
+										<Route path='/dockercheatsheet' component={Dockercheat} />
+										<Route path='/linuxcheatsheet' component={Linuxcheat} />
+										<Route path='/gitcheatsheet' component={Gitcheat} />
+
+									</Switch>
+								</div>
+
+							</div>
+
+					</div>
+
+              	</div>
 
           </div>
+
 
     );
   }

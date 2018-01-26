@@ -2,45 +2,21 @@ import React, { Component } from "react";
 
 class Dockercheat extends Component {
   componentWillMount = () => {
-    this.setState({
-      moreIsClicked: false
-    });
-  };
-
-  handleClick = () => {
-    //if(moreIsClicked){
-      this.setState({
-        moreIsClicked : !this.state.moreIsClicked
-      });
-    // }else {
-    //   this.setState({
-    //     moreIsClicked : false
-    //   });
-    //}
 
   };
+
+
 
   render() {
     return (
 
-        <div className="jumbotron">
+        <div>
           <h1>Docker Cheatsheet</h1>
 
           <p>
             I use Docker day to day. So I decided to make a cheatsheet on Docker.
           </p>
-          <p>
-            <button
-              type="button"
-              onClick={this.handleClick}
-              className="btn btn-primary btn-lg"
-            >
-              {this.state.moreIsClicked ? "Hide" : "Show more"}
-            </button>
-          </p>
 
-          {this.state.moreIsClicked === true &&
-            <p>
 
               <h3>Stop, Eable and Start Docker</h3>
               <code> sudo systemctl stop docker, sudo systemctl enable docker, sudo systemctl start docker  </code>
@@ -79,13 +55,11 @@ class Dockercheat extends Component {
                              then copy back again to the container to replace the old file. </p>
 
                              <code>  docker cp file.ext CONTAINER_NAME:/path/to/file.ext </code>
-                         
 
 
 
-            </p>
 
-          }
+
         </div>
 
     );
