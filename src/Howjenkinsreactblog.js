@@ -328,12 +328,12 @@ However, if I do that, there’s no reason to copy the full node_modules directo
 That’s where a .dockerignore file comes in.
 This lets me filter which files the Docker CLI sends to the Docker daemon, which is great for our efficiency!</li>
 <li>
-  Also note that create-react-app will generate a non-shrinkwrappable dependency tree, so we clean it up first.
-  We also use a --dev shrinkwrap, since we’ll be building in our Docker image and need the development dependencies to do so:
-  $ npm prune
-  $ npm dedupe
-  $ npm install
-  $ npm shrinkwrap --dev
+  Also note that create-react-app will generate a non-shrinkwrappable dependency tree, so I cleaned it up first.
+  and used a --dev shrinkwrap.
+  <code><br />npm prune
+  <br />npm dedupe
+  <br />npm install
+  <br />npm shrinkwrap --dev<br /></code>
 </li>
 
 </ol>
