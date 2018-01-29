@@ -4,6 +4,8 @@ import './App.css';
 import Dockercheat from './Dockercheat';
 import Linuxcheat from './Linuxcheat';
 import Gitcheat from './Gitcheat';
+import Howjenkinsreactblog from './Howjenkinsreactblog';
+
 
 import { Route, Link, Switch} from 'react-router-dom';
 
@@ -21,7 +23,8 @@ class App extends Component {
 
                     <div className="navbar-header">
 
-                      <a href='/' className="navbar-brand"><b>Sakib's Blog</b></a>
+
+                      <Link to="/" className="navbar-brand"><b>Sakib's Blog</b></Link>
 
                     </div>
 
@@ -36,16 +39,17 @@ class App extends Component {
 
 									<div class="col-sm-4">
 
-										 <Link to="/dockercheatsheet"><span className="btn"></span><h2>Docker Cheatsheet</h2></Link>
-										 <Link to="/linuxcheatsheet"><span className="btn"></span><h2>Linux Cheatsheet</h2></Link>
-										 <Link to="/gitcheatsheet"><span className="btn"></span><h2>GIT Cheatsheet</h2></Link>
+										<p> <Link to="/dockercheatsheet" className="btn btn-default btn-lg">Docker Cheatsheet</Link> </p>
+                    <p> <Link to="/linuxcheatsheet" className="btn btn-default btn-lg">Linux Cheatsheet</Link> </p>
+                    <p> <Link to="/gitcheatsheet" className="btn btn-default btn-lg">GIT Cheatsheet</Link> </p>
 
 									</div>
 
 								<div class="col-sm-8">
 									<Switch>
 
-										<Route path='/dockercheatsheet' component={Dockercheat} />
+                    <Route path='/' exact component={Howjenkinsreactblog} />
+                    <Route path='/dockercheatsheet' component={Dockercheat} />
 										<Route path='/linuxcheatsheet' component={Linuxcheat} />
 										<Route path='/gitcheatsheet' component={Gitcheat} />
 

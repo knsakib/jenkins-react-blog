@@ -7,7 +7,7 @@ ENV NPM_CONFIG_LOGLEVEL warn
 
 # Install all dependencies of the current project.
 COPY package.json package.json
-COPY npm-shrinkwrap.json npm-shrinkwrap.json
+
 RUN npm install
 
 # Install the server
