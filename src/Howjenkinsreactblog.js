@@ -317,13 +317,26 @@ All the intruction are mentioned at author's <a href="https://github.com/antonyb
 </ol>
 
 <h3>Creating Dockerfile</h3>
-I created the docker file in my project directory, and add the image I want to inherit from, and override the log level setting.
+<ol>
+  <li>
+    I created the docker file in my project directory, and add the image I want to inherit from, and override the log level setting.
 It includes all the module installation command and cra-universal build commands that include both the
-react build and server biuld command. I can just run <code>npm install</code> in my Dockerfile to install dependencies
+react build and server biuld command.</li>
+<li>I can just run <code>npm install</code> in my Dockerfile to install dependencies
 and copied from the build host,
 However, if I do that, there’s no reason to copy the full node_modules directory over at all.
 That’s where a .dockerignore file comes in.
-This lets me filter which files the Docker CLI sends to the Docker daemon, which is great for our efficiency!
+This lets me filter which files the Docker CLI sends to the Docker daemon, which is great for our efficiency!</li>
+<li>
+  Also note that create-react-app will generate a non-shrinkwrappable dependency tree, so we clean it up first.
+  We also use a --dev shrinkwrap, since we’ll be building in our Docker image and need the development dependencies to do so:
+  $ npm prune
+  $ npm dedupe
+  $ npm install
+  $ npm shrinkwrap --dev
+</li>
+
+</ol>
       </div>
     );
   }

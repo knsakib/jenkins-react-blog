@@ -1,13 +1,13 @@
 # You should always specify a full version here to ensure all of your developers
 # are running the same version of Node.
-FROM node:7.8.0
+FROM node:6-alpine
 
 # Override the base log level (info).
 ENV NPM_CONFIG_LOGLEVEL warn
 
 # Install all dependencies of the current project.
 COPY package.json package.json
-
+COPY npm-shrinkwrap.json npm-shrinkwrap.json
 RUN npm install
 
 # Install the server
