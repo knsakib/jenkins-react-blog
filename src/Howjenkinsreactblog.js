@@ -334,6 +334,9 @@ This lets me filter which files the Docker CLI sends to the Docker daemon, which
   <br />npm dedupe
   <br />npm install
   <br />npm shrinkwrap --dev<br /></code>
+  There is a good explanation of these steps mentioned <a href="https://medium.com/ai2-blog/dockerizing-a-react-application-3563688a2378">here</a>
+for building a dockerized production build react app.
+<li>Finally my Dockerfile looks like <a href="https://github.com/knsakib/jenkins-react-blog/blob/master/Dockerfile">this</a>.</li>
 </li>
 
 </ol>
