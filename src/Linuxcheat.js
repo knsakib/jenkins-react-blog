@@ -12,7 +12,7 @@ class Linuxcheat extends Component {
           Docker.
         </p>
 
-        <p>
+
           <h3>
             To remove a directory that contains other files or directories, use
             the following command.
@@ -20,7 +20,7 @@ class Linuxcheat extends Component {
           <code> rm -r mydir</code>
           <h3>
             If you don't want to receive a prompt for each file, during deletion
-          </h3>{" "}
+          </h3>
           <code>rm -rf mydir</code>
           <h3>The ps command lists running processes.</h3>
           <code>ps -A</code>
@@ -49,22 +49,22 @@ class Linuxcheat extends Component {
           </code>
           <h3>How to change the pririty of a process</h3>
           <code> renice 19 PID </code>
-          <p>
+
             The renice command changes the nice value of an already running
             process. The nice value determines what priority the process runs
             with. A value of -19 is very high priority, while a value of 19 is
             very low priority. A value of 0 is the default priority. The renice
             command requires a process’s PID. The following command makes a
             process run with very low priority:{" "}
-          </p>
+          
           <h3>Kill any UI process</h3>
-          <p>
+
             <code>xkill command</code> is a way of easily killing graphical
             programs. Run it and your cursor will turn into an x sign. Click a
             program’s window to kill that program. If you don’t want to kill a
             program, you can back out of xkill by right-clicking instead.
-          </p>
-        </p>
+
+
       </div>
     );
   }

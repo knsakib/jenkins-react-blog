@@ -7,10 +7,10 @@ class Howjenkinsreactblog extends Component {
     return (
       <div>
         <h1>
-          How I automated the deployment pipeline for my rendered react
-          docker daemon in Google Cloud Compute Engine
+          How I automated the deployment pipeline for my rendered react docker
+          daemon in Google Cloud Compute Engine
         </h1>
-        <h3>Creating Comoute Engine instance</h3>
+        <h3>Creating Compute Engine instance</h3>
         <ol>
           <li>
             In the Google Cloud Developer console I went to Compute Engine in
@@ -213,133 +213,301 @@ class Howjenkinsreactblog extends Component {
             </code>
           </li>
         </ol>
-
         <h3>Create a New Admin User</h3>
         <ol>
-<li>Enable Sign UP new user by changing the file /var/lib/jenkins/config.xml
-<code> <br />sudo nano /var/lib/jenkins/config.xml <br /></code>
-Set <disableSignup>true</disableSignup> to <disableSignup>false</disableSignup>
-<code> <br /> sudo systemctl restart jenkins <br /> </code> </li>
-<li>Sign Up new user</li>
-<li>Change the /var/lib/jenkins/config.xml file again and set <disableSignup>true</disableSignup> again
-<code> <br />sudo systemctl restart jenkins <br /> </code>
-</li>
-</ol>
+          <li>
+            Enable Sign UP new user by changing the file
+            /var/lib/jenkins/config.xml
+            <code>
+              {" "}
+              <br />sudo nano /var/lib/jenkins/config.xml <br />
+            </code>
+            Set <disableSignup>true</disableSignup> to{" "}
+            <disableSignup>false</disableSignup>
+            <code>
+              {" "}
+              <br /> sudo systemctl restart jenkins <br />{" "}
+            </code>{" "}
+          </li>
+          <li>Sign Up new user</li>
+          <li>
+            Change the /var/lib/jenkins/config.xml file again and set{" "}
+            <disableSignup>true</disableSignup> again
+            <code>
+              {" "}
+              <br />sudo systemctl restart jenkins <br />{" "}
+            </code>
+          </li>
+        </ol>
+        <h3>Install Docker </h3>
+        <ol>
+          <li>
+            First, add the GPG key for the official Docker repository to the
+            system: curl -fsSL https://download.docker.com/linux/ubuntu/gpg |
+            sudo apt-key add -
+          </li>
+          <li>
+            Add the Docker repository to APT sources:
+            <code>
+              {" "}
+              <br />sudo add-apt-repository "deb [arch=amd64]
+              https://download.docker.com/linux/ubuntu $(lsb_release -cs)
+              stable"
+            </code>
+          </li>
+          <li>
+            {" "}
+            Next, update the package database with the Docker packages from the
+            newly added repo:
+            <code>
+              {" "}
+              <br />sudo apt-get update{" "}
+            </code>
+          </li>
+          <li>
+            If you want to avoid typing sudo whenever you run the docker
+            command, add your username to the docker group:
+            <code>
+              <br /> sudo usermod -aG docker ${"{"}USER{"}"}{" "}
+            </code>
+          </li>
+          <li>
+            After following the prerequisites, both Jenkins and Docker are
+            installed on your server. However, by default, the Linux user
+            responsible for running the Jenkins process cannot access Docker. To
+            fix this, we need to add the jenkins user to the docker group using
+            the usermod command:
+            <code>
+              <br />sudo usermod -aG docker jenkins
+              <br /> sudo systemctl restart jenkins <br />{" "}
+            </code>
+          </li>
+        </ol>
+        <h3>Redirecting direct access to site from server's IP </h3>
+        <ol>
+          <li>
+            For this I created a new site that responds to the IP and responds
+            with a 301 redirect. To create a site just go to your Nginx's
+            installation /sites-availabledirectory. This directory is commonly
+            located at /etc/nginx/sites-available, run in your terminal:
+            <code>
+              <br />cd /etc/nginx/sites-available<br />
+            </code>
+          </li>
 
-<h3>Install Docker </h3>
-<ol>
-<li>First, add the GPG key for the official Docker repository to the system:
-curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
-</li>
-<li>Add the Docker repository to APT sources:
-<code> <br />sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
-</code>
-</li>
-<li> Next, update the package database with the Docker packages from the newly added repo:
- <code> <br />sudo apt-get update </code>
-</li>
-<li>
-If you want to avoid typing sudo whenever you run the docker command, add your username to the docker group:
-<code><br /> sudo usermod -aG docker ${'{'}USER{'}'} </code>
-</li>
-<li>After following the prerequisites, both Jenkins and Docker are installed on your server. However, by default, the Linux user responsible for running the Jenkins process cannot access Docker.
-To fix this, we need to add the jenkins user to the docker group using the usermod command:
-<code><br />sudo usermod -aG docker jenkins
-<br /> sudo systemctl restart jenkins <br /> </code>
-</li>
-</ol>
+          <li>
+            Once in the directory create a new server config file or edit one of
+            the server files that you have there. For this example let's create
+            a new one and add the server block there, I'll use nano to edit the
+            file, run in your terminal:
+            <code>
+              <br />touch empty_site
+              <br />nano empty_site <br />
+            </code>
+          </li>
 
-<h3>Redirecting direct access to site from server's IP </h3>
-<ol>
-<li>For this I created a new site that responds to the IP and responds with a 301 redirect.
-  To create a site just go to your Nginx's installation /sites-availabledirectory.
-  This directory is commonly located at /etc/nginx/sites-available, run in your terminal:
-<code><br />cd /etc/nginx/sites-available<br /></code>
-</li>
+          <li>
+            Add this server block, make sure to replace server_ip with your
+            server's IP.
+            <code>
+              <br />server {"{"}
+              <br /> listen 80;
+              <br /> listen 443; # add this to block HTTPS access
+              <br /> server_name my_server_ip_adress
+              https://my_server_ip_adress;
+              <br /> return 301 https://knsakib.com;
+              <br />
+              {"}"} <br />
+            </code>
+          </li>
 
-<li>Once in the directory create a new server config file or edit one of the server files that you have there.
-  For this example let's create a new one and add the server block there,
-  I'll use nano to edit the file, run in your terminal:
-<code><br/>touch empty_site
-<br />nano empty_site <br /></code>
-</li>
+          <li>Save and exit the file.</li>
 
-<li>
-  Add this server block, make sure to replace server_ip with your server's IP.
-<code>
-  <br />server {'{'}
-<br />    listen      80;
-<br />    listen      443; # add this to block HTTPS access
-<br />    server_name my_server_ip_adress https://my_server_ip_adress;
-<br />    return 301 https://knsakib.com;
-<br />{'}'} <br />
-</code>
-</li>
+          <li>
+            Now we just have to enabled the site and restart the Nginx server.
+            To enable the site lets navigate to the /sites-enabled directory
+            inside the Nginx config and create a symlink for the server config
+            file that we previously created, run in your terminal:
+            <code>
+              <br />cd /etc/nginx/sites-enabled
+              <br />ln -s /etc/nginx/sites-available/empty_site empty_site
+            </code>
+          </li>
 
-<li>Save and exit the file.</li>
+          <li>
+            Once this is done, we just have to restart the nginx server and
+            everything should be working as expected, to restart run this:
+            <code>
+              <br />sudo service nginx restart <br />{" "}
+            </code>
+          </li>
+        </ol>
+        <h3>Rendering my react site 'cause it's a Blog and it needs SEO</h3>
+        <ol>
+          <li>
+            I used{" "}
+            <a href="https://github.com/antonybudianto/cra-universal">
+              cra-universal
+            </a>{" "}
+            cra-universal to rendered my create-react-app blog. It uses express
+            server render the static react app. It biulds the react site and
+            biuld the rendered site together. It is an amazing tool, thanks to
+            it's author. All the intruction are mentioned at author's{" "}
+            <a href="https://github.com/antonybudianto/cra-universal">github</a>{" "}
+            page.
+          </li>
+          <li>
+            Because I am using react router, I made sure that App.js didn't
+            render BrowserRouter, but put it on src/index.js or outer files The
+            index.js code is{" "}
+            <a href="https://github.com/knsakib/jenkins-react-blog/blob/master/src/index.js">
+              here
+            </a>. And the App.js is{" "}
+            <a href="https://github.com/knsakib/jenkins-react-blog/blob/master/src/App.js">
+              here
+            </a>.
+          </li>
+          <li>
+            I also linked bootstarp cdn style sheet in index.html in stead of
+            using any bootstrap npm module to make sure that the css will not
+            create any issue with rendering.
+          </li>
+        </ol>
+        <h3>Creating Dockerfile</h3>
+        <ol>
+          <li>
+            I created the docker file in my project directory, and add the image
+            I want to inherit from, and override the log level setting. It
+            includes all the module installation command and cra-universal build
+            commands that include both the react build and server biuld command.
+          </li>
+          <li>
+            I can just run <code>npm install</code> in my Dockerfile to install
+            dependencies and copied from the build host, However, if I do that,
+            there’s no reason to copy the full node_modules directory over at
+            all. That’s where a .dockerignore file comes in. This lets me filter
+            which files the Docker CLI sends to the Docker daemon, which is
+            great for our efficiency!
+          </li>
+          <li>
+            Also note that create-react-app will generate a non-shrinkwrappable
+            dependency tree, so I cleaned it up first. and used a --dev
+            shrinkwrap.
+            <code>
+              <br />npm prune
+              <br />npm dedupe
+              <br />npm install
+              <br />npm shrinkwrap --dev<br />
+            </code>
+            There is a good explanation of these steps mentioned{" "}
+            <a href="https://medium.com/ai2-blog/dockerizing-a-react-application-3563688a2378">
+              here
+            </a>
+            for building a dockerized production build react app.
+            <li>
+              Finally my Dockerfile looks like{" "}
+              <a href="https://github.com/knsakib/jenkins-react-blog/blob/master/Dockerfile">
+                this
+              </a>.
+            </li>
+          </li>
+        </ol>
+        <h3>Creating Automatic build pipeline in jenkins</h3>
+        With the help of steps described in "Install Docker" section above and
+        some of the default plugins we enabled during installation, Jenkins can
+        now use Docker to run build and test tasks. Now I want Jenkins to build
+        and run my docker image as soon I push code to my github repository.
+        <ol>
+          <li>
+            In order for Jenkins to triger the build I need it to watch my
+            GitHub projects. For this I created a Personal Access Token in our
+            GitHub account. I clicked on my user icon in the upper-right hand
+            corner and select Settings from the drop down menu.
+          </li>
+          <li>
+            I locate the Developer settings section of the left-hand menu and
+            clicked Personal access tokens.
+          </li>
+          <li>Then I clicked on Generate new token button</li>
+          <li>In the Token description box, I added a description</li>
+          <li>
+            In the Select scopes section, I checked the repo:status,
+            repo:public_repo and admin:org_hook boxes. These will allow Jenkins
+            to update commit statuses and to create webhooks for the project. If
+            I used a private repository, I would need to select the general repo
+            permission instead of the repo subitems.
+          </li>
+          <li>Then I clicked Generate token at the bottom.</li>
+          <li>
+            My new token was displayed and copied the token. Please note that as
+            the message indicates on that page, there is no way to retrieve the
+            token once you leave this page.
+          </li>
+          <li>
+            From my Jenkins web interface in the the main dashboard, I clicked
+            Credentials in the left hand menu.
+          </li>
+          <li>
+            On the next page, I clicked the arrow next to (global) within the
+            Jenkins scope. In the box that appears, I clicked Add credentials
+          </li>
+          <li>
+            Under the Kind drop down menu, I selected Secret text. In the Secret
+            field, I pasted my GitHub personal access token. Filled out the
+            Description field. I left the Scope as Global and the ID field blank
+          </li>
+          <li>Clicked the OK button to finish</li>
+          <li>
+            In the main Jenkins dashboard, I clicked Manage Jenkins in the left
+            hand menu and in the list of links on the following page, I clicked
+            Configure System.
+          </li>
 
-<li>Now we just have to enabled the site and restart the Nginx server.
-To enable the site lets navigate to the /sites-enabled directory
-inside the Nginx config and create a symlink for the server config
-file that we previously created, run in your terminal:
-<code><br />cd /etc/nginx/sites-enabled
-<br />ln -s /etc/nginx/sites-available/empty_site empty_site
-</code>
-</li>
+          <li>
+            In the the GitHub section of that page, I clicked the Add GitHub
+            Server button and then select GitHub Server:
+          </li>
+          <li>
+            The section will expand to prompt for some additional information.
+            In the Credentials drop down menu, I selected my GitHub personal
+            access token that I added in the steps above
+          </li>
+          <li>
+            I Tested connection so that Jenkins can make a test API call to my
+            account and verify connectivity. Lastly I clicked the Save button to
+            implement your changes
+          </li>
 
-<li>
-Once this is done, we just have to restart the nginx server and everything should be working as expected, to restart run this:
-<code><br />sudo service nginx restart <br /> </code>
-</li>
-
-</ol>
-
-<h3>Rendering my react site 'cause it's a Blog and it needs SEO</h3>
-<ol>
-
-<li>I used <a href="https://github.com/antonybudianto/cra-universal">cra-universal</a> cra-universal to rendered
-my create-react-app blog. It uses express server render the static react app. It biulds the react site and biuld
-the rendered site together. It is an amazing tool, thanks to it's author.
-All the intruction are mentioned at author's <a href="https://github.com/antonybudianto/cra-universal">github</a> page.
-</li>
-<li>
-  Because I am using react router, I made sure that
-  App.js didn't render BrowserRouter, but put it on src/index.js or outer files
-  The index.js code is <a href="https://github.com/knsakib/jenkins-react-blog/blob/master/src/index.js">here</a>.
-  And the App.js is <a href="https://github.com/knsakib/jenkins-react-blog/blob/master/src/App.js">here</a>.
-
-</li>
-<li>
-  I also linked bootstarp cdn style sheet in index.html in stead of using any bootstrap npm module to make sure that the css will not create any issue
-  with rendering.
-</li>
-
-</ol>
-
-<h3>Creating Dockerfile</h3>
-<ol>
-  <li>
-    I created the docker file in my project directory, and add the image I want to inherit from, and override the log level setting.
-It includes all the module installation command and cra-universal build commands that include both the
-react build and server biuld command.</li>
-<li>I can just run <code>npm install</code> in my Dockerfile to install dependencies
-and copied from the build host,
-However, if I do that, there’s no reason to copy the full node_modules directory over at all.
-That’s where a .dockerignore file comes in.
-This lets me filter which files the Docker CLI sends to the Docker daemon, which is great for our efficiency!</li>
-<li>
-  Also note that create-react-app will generate a non-shrinkwrappable dependency tree, so I cleaned it up first.
-  and used a --dev shrinkwrap.
-  <code><br />npm prune
-  <br />npm dedupe
-  <br />npm install
-  <br />npm shrinkwrap --dev<br /></code>
-  There is a good explanation of these steps mentioned <a href="https://medium.com/ai2-blog/dockerizing-a-react-application-3563688a2378">here</a>
-for building a dockerized production build react app.
-<li>Finally my Dockerfile looks like <a href="https://github.com/knsakib/jenkins-react-blog/blob/master/Dockerfile">this</a>.</li>
-</li>
-
-</ol>
+          <li>
+            I created the Jenkinsfile which is not too much complicated. It just
+            conatins different stages from cloning the repo to build and run the
+            docker image. Jenkin is running this deamon as a node.
+          </li>
+          <li>
+            Now in the main Jenkins dashboard, I clicked New Item in the left
+            hand menu.
+          </li>
+          <li>
+            I named the new pipeline and select Pipeline as the item type.
+          </li>
+          <li>
+            Click the OK and on the next screen, checked the GitHub project box.
+            In the Project url field that appears, I pasted my project's GitHub
+            repository URL.
+          </li>
+          <li>
+            Next, in the Build Triggers section, I checked the GitHub hook
+            trigger for GITScm polling box. In the Pipeline section, I need to
+            tell Jenkins to run the pipeline defined in the Jenkinsfile in our
+            repository. I changed the Definition type to Pipeline script from
+            SCM.
+          </li>
+          <li>
+            In the new section that appears, I chose Git in the SCM menu. In the
+            Repository URL field that appears, I entered the URL of the
+            repository again.
+          </li>
+        </ol>
       </div>
     );
   }
