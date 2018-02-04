@@ -507,8 +507,58 @@ class Howjenkinsreactblog extends Component {
             Repository URL field that appears, I entered the URL of the
             repository again.
           </li>
+          <li>
+            If the project is a private Repository, I will use the add
+            credentials button to add additional access to the repository.
+            I can add a personal access token as I did with the hooks configuration earlier.
+            When I am finished, I clicked the Save button at the bottom of the page.
+          </li>
+          <li>
+          In order to trigger Jenkins to set up the appropriate hooks, we need to perform a manual build the first time.
+
+In pipeline's main page, I clicked Build Now in the left hand menu.</li>
+
+
+
+<li>A new build will be scheduled. In the Build History box in the lower left corner, a new build should appear in a moment.
+Additionally, a Stage View will begin to be drawn in the main area of the interface.
+This will track the progress of your testing run as the different stages are completed.</li>
+
+
+
+<li>In the Build History box, click on the number associated with the build to go to the build detail page.
+  From here, you can click the Console Output button in the left hand menu to see details of the steps that were run.</li>
+
+<li>I Clicked 'Back to Project' in the left hand menu when finished in order to return to the main pipeline view.
+
+Now that we've built the project once, we can have Jenkins create the webhooks for our project.
+Click Configure in the left hand menu of the pipeline.</li>
+
+<li>No changes are necessary on this screen, just click the Save button at the bottom.
+Now that the Jenkins has information about the project from the initial build process,
+it will register a webhook with our GitHub project when I saves the page.</li>
+
+<li>We can verify this by going to your GitHub repository and clicking the Settings button. </li>
+
+          <li>
+            On the next page, if we click Webhooks from the side menu.
+            You should see your Jenkins server webhook in the main interface.
+
+          Now, when you push new changes to your repository, Jenkins will be notified.
+          It will then pull the new code and retest it using the same procedure.
+          </li>
         </ol>
-      </div>
+        These steps are very well defined with graphical representation in this
+        <a href="https://www.digitalocean.com/community/tutorials/how-to-set-up-continuous-integration-pipelines-in-jenkins-on-ubuntu-16-04"> Digital Ocean Tutorial.</a>
+        <h3>Maintenance</h3>
+          As I am using bare-bone instance to run my Docker, I may need to sometimes remove the previous Docker image to clear up my memory.
+          To do this, we need to run
+          <code><br />docker volume ls -qf dangling=true | xargs -r docker volume rm<br /></code>
+            There is a good <a herf="https://lebkowski.name/docker-volumes/">
+            doc</a> expaining how to claim volume for different docker version. I can include this command in Jenkinsfile to automate this process
+            But I just want make the process resource intensive or to take more time. So, I will run this command once in a while in the instance
+            to clean up the memory.
+  </div>
     );
   }
 }

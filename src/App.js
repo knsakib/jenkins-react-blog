@@ -61,8 +61,8 @@ class App extends Component {
 
 									<div class="col-sm-4 sidecol">
 
-                    <p> <Link to="/how-to-orchestrat-kube" className="btn btn-default btn-lg">How to Orchestra the Cloud with Kubernetes</Link> </p>
-                    
+                    <p> <Link to="/how-to-orchestrat-kube" className="btn btn-default btn-lg">How to Orchestra the <br />Cloud with Kubernetes</Link> </p>
+
                     <p> <Link to="/dockercheatsheet" className="btn btn-default btn-lg">Docker Cheatsheet</Link> </p>
 
                     <p> <Link to="/linuxcheatsheet" className="btn btn-default btn-lg">Linux Cheatsheet</Link> </p>
