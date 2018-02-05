@@ -1,12 +1,12 @@
-This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app).
+This blog is to describe core concept of Google Cloud Platform.
 
-Below you will find some information on how to perform common tasks.<br>
-You can find the most recent version of this guide [here](https://github.com/facebookincubator/create-react-app/blob/master/packages/react-scripts/template/README.md).
+Below you will find some information on networking concept on Google Cloud Platform 
+[here](https://knsakib.com).
 
 ## Table of Contents
 
-- [Updating to New Releases](#updating-to-new-releases)
-- [Sending Feedback](#sending-feedback)
+- [Networking in Google Cloud](#networking-in-google-cloud)
+- [The default Network](#the-default-network)
 - [Folder Structure](#folder-structure)
 - [Available Scripts](#available-scripts)
   - [npm start](#npm-start)
@@ -95,24 +95,58 @@ You can find the most recent version of this guide [here](https://github.com/fac
   - [Moment.js locales are missing](#momentjs-locales-are-missing)
 - [Something Missing?](#something-missing)
 
-## Updating to New Releases
+## Networking in Google Cloud
 
-Create React App is divided into two packages:
+# Regions and Zones
 
-* `create-react-app` is a global command-line utility that you use to create new projects.
-* `react-scripts` is a development dependency in the generated projects (including this one).
+Certain Compute Engine resources live in regions or zones. 
+A region is a specific geographical location where you can run your resources. 
+Each region has one or more zones. For example, the us-central1 region denotes 
+a region in the Central United States that has zones us-central1-a, us-central1-b, us-central1-c, 
+and us-central1-f.
 
-You almost never need to update `create-react-app` itself: it delegates all the setup to `react-scripts`.
+Resources that live in a zone are referred to as zonal resources. Virtual machine Instances and 
+persistent disks live in a zone. To attach a persistent disk to a virtual machine instance, 
+both resources must be in the same zone. Similarly, if you want to assign a static IP address to 
+an instance, the instance must be in the same region as the static IP.
 
-When you run `create-react-app`, it always creates the project with the latest version of `react-scripts` so you’ll get all the new features and improvements in newly created apps automatically.
+#Google Cloud Network Concepts
 
-To update an existing project to a new version of `react-scripts`, [open the changelog](https://github.com/facebookincubator/create-react-app/blob/master/CHANGELOG.md), find the version you’re currently on (check `package.json` in this folder if you’re not sure), and apply the migration instructions for the newer versions.
+In Google Cloud Platform, networks provide data connections into and out of your cloud resources 
+(mostly Compute Engine instances). Securing your Networks is critical to securing your data and 
+controlling access to your resources.
 
-In most cases bumping the `react-scripts` version in `package.json` and running `npm install` in this folder should be enough, but it’s good to consult the [changelog](https://github.com/facebookincubator/create-react-app/blob/master/CHANGELOG.md) for potential breaking changes.
+Google Cloud Platform supports Projects, Networks, and Subnetworks to provide flexible, 
+logical isolation of unrelated resources.
 
-We commit to keeping the breaking changes minimal so you can upgrade `react-scripts` painlessly.
+#Projects
 
-## Sending Feedback
+Projects are the outermost container and are used to group resources that share the same trust boundary. 
+Many developers map Projects to teams since each Project has its own access policy (IAM) and member list. 
+Projects also serve as a collector of billing and quota details reflecting resource consumption. 
+Projects contain Networks which contain Subnetworks, Firewall rules, and Routes 
+(see below architecture diagrams for illustration).
+
+#Network and Subnetwork
+
+Networks directly connect your resources to each other and to the outside world. Networks, 
+using Firewalls, also house the access policies for incoming and outgoing connections. 
+Networks can be Global (offering horizontal scalability across multiple Regions) or Regional 
+(offering low-latency within a single Region).
+
+Subnetworks allow you to group related resources (Compute Engine instances) into RFC1918 private 
+address spaces. Subnetworks can only be Regional. A subnetwork can be in auto mode or custom mode.
+
+An auto mode network has one subnet per region, each with a predetermined IP range and gateway. 
+These subnets are created automatically when you create the auto mode network, and each subnet has the 
+same name as the overall network.
+
+A custom mode network has no subnets at creation. In order to create an instance in a 
+custom mode network, you must first create a subnetwork in that region and specify its IP range. 
+A custom mode network can have zero, one, or many subnets per region.
+
+
+## The Default Network
 
 We are always open to [your feedback](https://github.com/facebookincubator/create-react-app/issues).
 
