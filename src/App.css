@@ -7,6 +7,18 @@
   height: 80px;
 }
 
+.gcp-project {
+
+  width: 70%;
+  height: auto;
+}
+
+.firewall {
+
+  width: 40%;
+  height: auto;
+}
+
 .App-header {
   background-color: #222;
   height: 150px;

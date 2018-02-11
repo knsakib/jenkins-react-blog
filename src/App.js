@@ -6,6 +6,17 @@ import Linuxcheat from './Linuxcheat';
 import Gitcheat from './Gitcheat';
 import Howjenkinsreactblog from './Howjenkinsreactblog';
 import Howtoorchestrat from './Howtoorchestrat';
+import Gcpnetworking from './Gcpnetworking';
+import Performance from './Performance';
+import Deployappengine from './Deployappengine';
+import Mongokube from './Mongokube';
+import Network from './Network'
+import Puppetingooglecloud from './Puppetingooglecloud'
+
+
+
+
+
 
 
 
@@ -61,12 +72,19 @@ class App extends Component {
 
 									<div class="col-sm-4 sidecol">
 
-                    <p> <Link to="/how-to-orchestrat-kube" className="btn btn-default btn-lg">How to Orchestra the Cloud with Kubernetes</Link> </p>
-                    
+                    <p> <Link to="/how-to-orchestrat-kube" className="btn btn-default btn-lg">How to Orchestra the <br />Cloud with Kubernetes</Link> </p>
+
                     <p> <Link to="/dockercheatsheet" className="btn btn-default btn-lg">Docker Cheatsheet</Link> </p>
 
                     <p> <Link to="/linuxcheatsheet" className="btn btn-default btn-lg">Linux Cheatsheet</Link> </p>
                     <p> <Link to="/gitcheatsheet" className="btn btn-default btn-lg">GIT Cheatsheet</Link> </p>
+                    <p> <Link to="/gcpnetworking" className="btn btn-default btn-lg">Google Cloud<br /> Networking</Link> </p>
+                    <p> <Link to="/performance" className="btn btn-default btn-lg">Simple Performance Testing<br /> in Google Cloud</Link> </p>
+                    <p> <Link to="/deployappengine" className="btn btn-default btn-lg">Deploy in App Engine<br /> from Eclipse </Link> </p>
+                    <p> <Link to="/mongokube" className="btn btn-default btn-lg">Mongo in Kubernetes<br /> with StatefulSets </Link> </p>
+                    <p> <Link to="/network" className="btn btn-default btn-lg">Networks<br /> in Google Cloud </Link> </p>
+                    <p> <Link to="/puppet" className="btn btn-default btn-lg">Puppet in<br /> Google Cloud </Link> </p>
+
 
 									</div>
 
@@ -79,6 +97,20 @@ class App extends Component {
                     <Route path='/dockercheatsheet' component={Dockercheat} />
 										<Route path='/linuxcheatsheet' component={Linuxcheat} />
 										<Route path='/gitcheatsheet' component={Gitcheat} />
+                    <Route path='/gcpnetworking' component={Gcpnetworking} />
+                    <Route path='/performance' component={Performance} />
+                    <Route path='/deployappengine' component={Deployappengine} />
+                    <Route path='/mongokube' component={Mongokube} />
+
+                    <Route path='/network' component={Network} />
+                    <Route path='/puppet' component={Puppetingooglecloud} />
+
+
+
+
+
+
+
 
 
 									</Switch>
