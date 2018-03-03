@@ -58,41 +58,25 @@ Google Cloud Platform supports Projects, Networks, and Subnetworks to provide fl
   Each instance created within a subnetwork is assigned an IPv4 address from that subnetwork range.
 
   Let's review your network. Click Products & services > VPC network.
-
   <h3>Firewalls</h3>
-
   See Subnetworks and firewall rules for more information on how you can use firewall rules to isolate subnetworks.
-
   Each network has a default firewall that blocks all inbound traffic to instances. To allow traffic to come into an instance, you must create "allow" rules for the firewall. Additionally, the default firewall allows traffic from instances unless you configure it to block outbound connections using an "egress" firewall configuration. Therefore, by default you can create "allow" rules for traffic you wish to pass ingress, and "deny" rules for traffic you wish to restrict egress. You may also create a default-deny policy for egress and prohibit external connections entirely.
-
   In general, it is recommended to configure the least permissive firewall rule that will support the kind of traffic you are trying to pass. For example, if you need to allow traffic to reach some instances, but restrict traffic from reaching others, create rules that allow traffic to the intended instances only. This more restrictive configuration is more predictable than a large firewall rule that allows traffic to all of the instances. If you want to have "deny" rules to override certain "allow" rules, you can set priority levels on each rule and the rule with the lowest numbered priority will be evaluated first. Creating large and complex sets of override rules can lead to allowing or blocking traffic that is not intended.
-
   The default network has automatically created firewall rules, which are shown below. No manually created network of any type has automatically created firewall rules. For all networks except the default network, you must create any firewall rules you need.
-
   The ingress firewall rules automatically created for the default network are as follows:
-
   <code><br />default-allow-internal<br /></code>
   Allows network connections of any protocol and port between instances on the network.
-
   <code><br />default-allow-ssh<br /></code>
   Allows SSH connections from any source to any instance on the network over TCP port 22.
-
   <code><br />default-allow-rdp<br /></code>
   Allows RDP connections from any source to any instance on the network over TCP port 3389.
-
   <code><br />default-allow-icmp<br /></code>
   Allows ICMP traffic from any source to any instance on the network.
-
   To review the default Firewall rules, in the Console click Products & services > VPC networks > Firewall rules.
-
   <h3>Creating a custom network</h3>
-
 Creating a new network with custom subnet ranges
-
 When manually assigning subnetwork ranges, you first create a custom subnet network, then create the subnetworks that you want within a region. You do not have to specify subnetworks for all regions right away, or even at all, but you cannot create instances in regions that have no subnetwork defined.
-
 When you create a new subnetwork, its name must be unique in that project for that region, even across networks. The same name can appear twice in a project as long as each one is in a different region. Because this is a subnetwork, there is no network-level IPv4 range or gateway IP, so none will be displayed.
-
 You can either create your custom network with the console or with the cloud shell. We'll show you both, but you have to decide which method to use while taking the lab. For example, you cannot go through a section using the instructions for the console, then go through the same section using gcloud command line.
 
 <h3>Create Custom Network with the Console</h3>
@@ -146,42 +130,25 @@ To allow access to VM instances, you must apply firewall rules. We will use an i
 
 Note: Instance Tags are used by networks and firewalls to apply certain firewall rules to tagged VM instances. For example, if there are several instances that perform the same task, such as serving a large website, you can tag these instances with a shared word or term and then use that tag to allow HTTP access to those instances with a firewall rule. Tags are also reflected in the metadata server, so you can use them for applications running on your instances.
 Start by opening the firewall to allow HTTP Internet requests, then you'll add more firewall rules. Firewall rules can be added using the Console or Cloud Shell.
-
 <h3>Add firewall rules through the Console</h3>
-
 Navigate to VPC networking with the Menu and click on the taw-custom-networking network:
-
-
-
 Click Add Firewall rule:
-
-
-
 Enter the values so that screenshould look like this:<br />
-
 <img src={firewall} className="firewall" alt="gcp-project" /> <br />
-
 Click Create and wait until the command succeeds. Next you'll create the additional firewall rules you'll need.
-
 <h3>Create additional firewall rules using Cloud Shell</h3>
-
 <h4>ICMP</h4>
 <code>gcloud compute firewall-rules create "nw101-allow-icmp" --allow icmp --network "taw-custom-network"</code><br />
-
 <h4>Internal communication</h4>
 <code>
   gcloud compute firewall-rules create "nw101-allow-internal" --allow tcp:0-65535,udp:0-65535,icmp
   --network "taw-custom-network" --source-ranges "10.0.0.0/16","10.2.0.0/16","10.1.0.0/16"
-
 </code><br />
 <h4>ssh</h4>
 <code>gcloud compute firewall-rules create "nw101-allow-ssh" --allow tcp:22 --network "taw-custom-network" --target-tags "ssh"
 </code><br />
-
 Review your network in the Console.
-
 Note: What about those Routes I see in the Network console?
-
 GCP Networking uses Routes to direct packets between subnetworks and to the Internet.
 Whenever a subnetwork is created (or pre-created) in your Network, routes are automatically created in each region to
 allow packets to route between subnetworks. These cannot be modified.
@@ -189,24 +156,17 @@ allow packets to route between subnetworks. These cannot be modified.
 <b>Additional Routes can be created to send traffic to an instance, a VPN gateway, or default internet gateway.</b>
 These Routes can be modified to tailor the desired network architecture. Routes and Firewalls work together
 to ensure your traffic gets where it needs to go.
-
 <h3>Connecting to your VMs and checking latency</h3>
-
 Click on the VPC network button in the left menu to see your entire network. The taw-custom-network has three subnetworks
 and the firewalls rules applied.
-
 <h4>Creating a VM in each zone</h4>
-
 For this section of the lab, start in Cloud Shell.
-
 Run these commands to create an instance in each of the three subnets. Be sure to note the external IPs for later use in this lab.
-
 <code><br />gcloud compute instances create us-test-01 \
 <br />--subnet subnet-us-central \
 <br />--zone us-central1-a \
 <br />--tags ssh,http<br /></code>
 (Output)
-
 <code><br />Created [https://www.googleapis.com/compute/v1/projects/cloud-network-module-101/zones/us-central1-a/instances/us-test-01].
 NAME        ZONE           MACHINE_TYPE   PREEMPTIBLE  INTERNAL_IP  EXTERNAL_IP     STATUS
 us-test-01  us-central1-a  n1-standard-1               10.0.0.2     104.198.230.22  RUNNING<br /></code>
@@ -219,9 +179,7 @@ Creating other two instances
 --subnet subnet-asia-east \
 --zone asia-east1-a \
 --tags ssh,http<br /></code>
-
 <h3>Verify you can connect your VM</h3>
-
 Now we'll do a few exercises to test the connection to your VMs.
 
 Switch back to the Console and navigate to Compute Engine.
@@ -258,15 +216,10 @@ Ping uses the ICMP Echo Request and Echo Reply Messages to test connectivity.
 <h4>Internal DNS: How is DNS provided for VM instances?</h4>
 
 Each instance has a metadata server that also acts as a DNS resolver for that instance. DNS lookups are performed for instance names. The metadata server itself stores all DNS information for the local network and queries Google's public DNS servers for any addresses outside of the local network.
-
 An internal fully qualified domain name (FQDN) for an instance looks like <h4>this:hostName.c.[PROJECT_ID].internal</h4>
-
 You can always connect from one instance to another using this FQDN. If you want to connect to an instance using, for example, just hostName, you need information from the internal DNS resolver that is provided as part of Compute Engine.
-
       </div>
     );
   }
 }
-
-
 export default Gcpnetworking;
