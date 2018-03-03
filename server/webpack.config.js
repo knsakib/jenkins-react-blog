@@ -37,7 +37,7 @@ module.exports = {
         }
       },
       {
-        test: /\.(css|svg)?$/,
+        test: /\.(css|svg|png)?$/,
         loaders: 'null-loader'
       }
     ],

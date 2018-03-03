@@ -12,11 +12,8 @@ import Deployappengine from './Deployappengine';
 import Mongokube from './Mongokube';
 import Network from './Network'
 import Puppetingooglecloud from './Puppetingooglecloud'
-
-
-
-
-
+import Kms from './Kms'
+import Dockerapi from './Dockerapi'
 
 
 
@@ -84,6 +81,8 @@ class App extends Component {
                     <p> <Link to="/mongokube" className="btn btn-default btn-lg">Mongo in Kubernetes<br /> with StatefulSets </Link> </p>
                     <p> <Link to="/network" className="btn btn-default btn-lg">Networks<br /> in Google Cloud </Link> </p>
                     <p> <Link to="/puppet" className="btn btn-default btn-lg">Puppet in<br /> Google Cloud </Link> </p>
+                    <p> <Link to="/kms" className="btn btn-default btn-lg"> Data encryption in Google Cloud </Link> </p>
+                    <p> <Link to="/dockerapi" className="btn btn-default btn-lg"> Using Dcoker and Kubernetes API </Link> </p>
 
 
 									</div>
@@ -104,6 +103,11 @@ class App extends Component {
 
                     <Route path='/network' component={Network} />
                     <Route path='/puppet' component={Puppetingooglecloud} />
+                    <Route path='/kms' component={Kms} />
+
+                    <Route path='/dockerapi' component={Dockerapi} />
+
+
 
 
 

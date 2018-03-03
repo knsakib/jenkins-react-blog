@@ -7,15 +7,19 @@ class Dockercheat extends Component {
     return (
       <div>
         <h1>Docker Cheatsheet</h1>
-        <p>
+
           I use Docker day to day. So I decided to make a cheatsheet on Docker.
-        </p>
+
         <h3>Stop, Eable and Start Docker</h3>
         <code>
           {" "}
           sudo systemctl stop docker, sudo systemctl enable docker, sudo
           systemctl start docker{" "}
         </code>
+        <h3>List all the running containers</h3>
+        <code>docker ps</code>
+        <h3>Stop a container</h3>
+        <code>docker stop CCONTAINER_NAME</code>
         <h3>List all the images</h3> <code>docker images -a</code>
         <h3>Remove one specfic image </h3>
         <code>docker rmi imageID1 imageID2</code>
@@ -41,13 +45,13 @@ class Dockercheat extends Component {
         <h3>To get in to the Container</h3>
         <code>docker exec -it CONTAINER_NAME bash </code>
         <h3>If I want to edit a file inside Container</h3>
-        <p>First I copy the file in the docker hosted machine. </p>
+        First I copy the file in the docker hosted machine.
         <code> docker cp CONTAINER_NAME:/path/to/file.ext . </code>
-        <p>
+
           {" "}
           Then I edit the file locally using your favorite editor, and then copy
           back again to the container to replace the old file.{" "}
-        </p>
+
         <code> docker cp file.ext CONTAINER_NAME:/path/to/file.ext </code>
       </div>
     );
